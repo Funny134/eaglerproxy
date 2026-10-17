@@ -1,5 +1,5 @@
 # Use the newer, modern Node 22 environment required by the dependencies
-FROM node:22-alpine
+FROM node:20-alpine
 
 # Set our application workspace directory
 WORKDIR /usr/src/app
