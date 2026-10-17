@@ -7,8 +7,11 @@ WORKDIR /usr/src/app
 # Copy the tracking configuration layouts
 COPY package*.json yarn.lock* ./
 
-# Bypass the strict environmental engine validation check to clear build limits
+# Bypass strict environmental engine validation checks
 RUN yarn install --ignore-engines
+
+# Install ts-node globally so we can run the raw code files immediately
+RUN npm install -g ts-node typescript
 
 # Copy the rest of your application code
 COPY . .
@@ -16,5 +19,5 @@ COPY . .
 # Expose the network protocol port
 EXPOSE 8080
 
-# Run the project file engine directly
-CMD ["node", "build/index.js"]
+# Launch the engine directly using the runtime executor tool
+CMD ["npx", "ts-node", "src/launcher.ts"]
