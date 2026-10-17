@@ -19,5 +19,5 @@ COPY . .
 # Expose the network protocol port
 EXPOSE 8080
 
-# Launch the engine directly using the runtime executor tool
-CMD ["npx", "ts-node", "src/launcher.ts"]
+# Launch the project using the verified core tracking script
+CMD ["npx", "ts-node", "src/index.ts"]
