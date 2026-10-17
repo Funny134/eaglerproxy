@@ -1,23 +1,20 @@
-# Use the newer, modern Node 22 environment required by the dependencies
-FROM node:20-alpine
+# Use a highly stable legacy Node environment to match the proxy template rules
+FROM node:18-alpine
 
-# Set our application workspace directory
+# Set the active work directory
 WORKDIR /usr/src/app
 
-# Copy the tracking configuration layouts
-COPY package*.json yarn.lock* ./
+# Copy configuration descriptors
+COPY package*.json ./
 
-# Bypass strict environmental engine validation checks
-RUN yarn install --ignore-engines
+# Install packages, force local TypeScript installation tools, and clear caching boundaries
+RUN yarn install && npm install typescript ts-node
 
-# Install ts-node globally so we can run the raw code files immediately
-RUN npm install -g ts-node typescript
-
-# Copy the rest of your application code
+# Copy the rest of the source application files
 COPY . .
 
-# Expose the network protocol port
+# Expose the proxy networking interface port
 EXPOSE 8080
 
-# Launch the project using the verified core tracking script
+# Boot up the server using the local typescript executor
 CMD ["npx", "ts-node", "src/index.ts"]
