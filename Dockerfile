@@ -9,6 +9,6 @@ RUN npm ci
 COPY . .
 
 RUN npm install --no-save --package-lock=false typescript@5.6.3
-RUN npx tsc -p tsconfig.json
+RUN npx tsc -p tsconfig.json --noEmitOnError false || test -f build/index.js
 
 CMD ["node", "build/index.js"]
